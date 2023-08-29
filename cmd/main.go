@@ -5,7 +5,6 @@ import (
 	"net/http"
 	"server/server"
 	"server/server/handler"
-	"server/server/handler/routes"
 )
 
 func main() {
@@ -15,8 +14,7 @@ func main() {
 	httpServer := server.NewHTTPServer()
 
 	if err := httpServer.RegisterHTTPHandlers(
-		&handler.HealthHandler{},
-		&routes.RoutesHandler{},
+		handler.MakeServerHandlers()...,
 	); err != nil {
 		log.Fatal(err)
 	}
