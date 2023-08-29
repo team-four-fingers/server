@@ -2,6 +2,7 @@ package routes
 
 import (
 	"github.com/labstack/echo/v4"
+	"github.com/samber/lo"
 	"net/http"
 	"server/server"
 )
@@ -21,36 +22,47 @@ func (h *RoutesHandler) Path() string {
 func (h *RoutesHandler) HandleFunc() func(c echo.Context) error {
 	return func(c echo.Context) error {
 		resp := &RoutesResponse{
+			//"name": "일진빌딩",
+			//{         "x": "126.946362033068",         "y": "37.5404741779088"     }
 			Origin: &Coordinate{
-				X: 37.5403831,
-				Y: 126.9463611,
+				X: 126.946362033068,
+				Y: 37.5404741779088,
 			},
+			// {         "name": "카카오모빌리티", "x": "127.1101250888609",         "y": "37.39407843730005"     }
 			Destination: &Coordinate{
-				X: 37.5513831,
-				Y: 126.9573611,
+				X: 127.1101250888609,
+				Y: 37.39407843730005,
 			},
+			// [{             "name": "파크원타워1",             "x": "126.92716700037366",         "y": "37.5266641708316"         }]
 			Waypoints: []*Coordinate{
 				{
-					X: 37.5413831,
-					Y: 126.9473611,
+					X: 126.92716700037366,
+					Y: 37.5266641708316,
 				},
 			},
-			CoordinatesInOrder: []*Coordinate{
-				{
-					X: 37.5403831,
-					Y: 126.9463611,
-				},
-				{
-					X: 37.5413831,
-					Y: 126.9473611,
-				},
-				{
-					X: 37.5513831,
-					Y: 126.9573611,
-				},
-			},
+			CoordinatesInOrder: roadsToCoordinatesInOrder(LoadExampleRoadData()),
 		}
 
 		return c.JSON(http.StatusOK, resp)
 	}
+}
+
+func roadsToCoordinatesInOrder(roads []*Road) []*Coordinate {
+	if len(roads) == 0 {
+		return nil
+	}
+
+	coordinatesInOrder := make([]*Coordinate, 0, lo.SumBy(roads, func(road *Road) int {
+		return len(road.Vertexes) / 2
+	}))
+	for _, road := range roads {
+		for i := 0; i < len(road.Vertexes); i += 2 {
+			coordinatesInOrder = append(coordinatesInOrder, &Coordinate{
+				X: road.Vertexes[i],
+				Y: road.Vertexes[i+1],
+			})
+		}
+	}
+
+	return coordinatesInOrder
 }
