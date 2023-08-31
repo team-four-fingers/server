@@ -7,10 +7,12 @@ import (
 	"github.com/pkg/errors"
 	"github.com/sirupsen/logrus"
 	"net/http"
+	"server/config"
 )
 
 type HTTPServer struct {
 	*echo.Echo
+	cfg *config.Config
 }
 
 type HTTPHandler interface {
@@ -19,12 +21,18 @@ type HTTPHandler interface {
 	HandleFunc() func(c echo.Context) error
 }
 
-func NewHTTPServer() *HTTPServer {
+func NewHTTPServer(cfg *config.Config) *HTTPServer {
 	e := echo.New()
 	e.Use(middleware.Recover())
+	e.Use(middleware.Logger())
+	e.Use(middleware.BodyDump(func(c echo.Context, reqBody, resBody []byte) {
+		logrus.Info("request body: ", string(reqBody))
+		logrus.Info("response body: ", string(resBody))
+	}))
 	e.Use(middleware.CORS())
 	return &HTTPServer{
-		e,
+		Echo: e,
+		cfg:  cfg,
 	}
 }
 

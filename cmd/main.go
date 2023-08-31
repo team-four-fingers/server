@@ -5,23 +5,24 @@ import (
 	"github.com/team-four-fingers/kakao/mobility"
 	"log"
 	"net/http"
+	"server/config"
 	"server/server"
 	"server/server/handler"
 )
 
 func main() {
-	setting := NewSetting()
+	setting := config.NewSetting()
 
-	cfg := NewConfig(
+	cfg := config.NewConfig(
 		setting,
 		mobility.NewClient(core.NewClient(core.WithRestAPIKey(setting.KakaoRESTAPIKey))),
 	)
-	portNumber := cfg.setting.PortNumber
+	portNumber := cfg.Setting().PortNumber
 
-	httpServer := server.NewHTTPServer()
+	httpServer := server.NewHTTPServer(cfg)
 
 	if err := httpServer.RegisterHTTPHandlers(
-		handler.MakeServerHandlers()...,
+		handler.MakeServerHandlers(cfg)...,
 	); err != nil {
 		log.Fatal(err)
 	}

@@ -7,7 +7,7 @@ require (
 	github.com/pkg/errors v0.9.1
 	github.com/samber/lo v1.38.1
 	github.com/sirupsen/logrus v1.9.3
-	github.com/team-four-fingers/kakao v0.0.0-20230831042225-104693c8b209
+	github.com/team-four-fingers/kakao v0.0.0-20230831061222-e7b8d0ba00ec
 )
 
 require (
