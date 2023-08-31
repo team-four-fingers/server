@@ -143,6 +143,9 @@ func (h *Handler) HandleFunc() func(c echo.Context) error {
 		results = lo.UniqBy(results, func(result Result) string {
 			return result.Store.Name
 		})
+		for i, _ := range results {
+			results[i].ResultId = i
+		}
 
 		return c.JSON(http.StatusOK, &Response{
 			Results: results,
