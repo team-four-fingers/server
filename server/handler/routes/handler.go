@@ -165,23 +165,23 @@ func (h *Handler) HandleFunc() func(c echo.Context) error {
 		treatmentTotalDuration := initialFirstRoute.Summary.Duration + initialSecondRoute.Summary.Duration
 		treatmentTotalDistance := initialFirstRoute.Summary.Distance + initialSecondRoute.Summary.Distance
 
-		treatmentGasCost := treatmentTotalDistance / fuelEfficiencyLiterPerKm * gastCostPerLiter
-		controlGastCost := bestRoute.Summary.Distance / fuelEfficiencyLiterPerKm * gastCostPerLiter
+		treatmentGasCost := treatmentTotalDistance / 1000 / fuelEfficiencyLiterPerKm * gastCostPerLiter
+		controlGastCost := bestRoute.Summary.Distance / 1000 / fuelEfficiencyLiterPerKm * gastCostPerLiter
 
 		resp := &Response{
 			Origin:             origin,
 			Destination:        destination,
 			Waypoints:          waypoints,
 			CoordinatesInOrder: sectionsToCoordinatesInOrder(bestRoute.Sections),
-			DurationInSeconds:  bestRoute.Summary.Duration,
+			DurationInSeconds:  bestRoute.Summary.Duration / 60,
 			DistanceInMeters:   bestRoute.Summary.Distance,
 			Comparison: NavigationComparison{
-				SavedTimeInMinutes: treatmentTotalDuration - bestRoute.Summary.Duration,
+				SavedTimeInMinutes: (treatmentTotalDuration - bestRoute.Summary.Duration) / 60,
 				SavedGasCost:       treatmentGasCost - controlGastCost,
 				Control: Control{
-					DurationInMinutes: bestRoute.Summary.Duration,
+					DurationInMinutes: bestRoute.Summary.Duration / 60,
 					DistanceInMeters:  bestRoute.Summary.Distance,
-					GasCost:           0,
+					GasCost:           controlGastCost,
 					Route: Route{
 						Origin:      origin,
 						Destination: destination,
@@ -189,9 +189,9 @@ func (h *Handler) HandleFunc() func(c echo.Context) error {
 					},
 				},
 				Treatment: Treatment{
-					DurationInMinutes: treatmentTotalDuration,
+					DurationInMinutes: treatmentTotalDuration / 60,
 					DistanceInMeters:  treatmentTotalDistance,
-					GasCost:           treatmentTotalDistance / fuelEfficiencyLiterPerKm * gastCostPerLiter,
+					GasCost:           treatmentGasCost,
 					Routes: []Route{
 						{
 							Origin:      origin,
