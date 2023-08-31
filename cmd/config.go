@@ -1,19 +1,25 @@
 package main
 
 import (
-	"server/pkg/env"
+	"github.com/team-four-fingers/kakao/mobility"
 )
 
 type Config struct {
-	portNumber string
+	setting     *Setting
+	mobilityCli mobility.Client
 }
 
-func (c *Config) PortNumber() string {
-	return c.portNumber
+func (c *Config) MobilityCli() mobility.Client {
+	return c.mobilityCli
 }
 
-func NewConfig() *Config {
+func (c *Config) Setting() *Setting {
+	return c.setting
+}
+
+func NewConfig(setting *Setting, mobilityCli mobility.Client) *Config {
 	return &Config{
-		portNumber: env.MustGetEnvString("PORT", "8080"),
+		setting:     setting,
+		mobilityCli: mobilityCli,
 	}
 }

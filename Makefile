@@ -64,4 +64,4 @@ help:
 deploy-to-cloud-run:
 	docker build -t ${IMAGE_NAME} . && \
 	docker push ${IMAGE_NAME} && \
-	gcloud run deploy server --image=${IMAGE_NAME} --platform managed --region ${REGION} --allow-unauthenticated --project ${PROJECT_ID}
+	gcloud run deploy server --image=${IMAGE_NAME} --platform managed --region ${REGION} --allow-unauthenticated --project ${PROJECT_ID} --set-env-vars "KAKAO_REST_API_KEY=${KAKAO_REST_API_KEY}"

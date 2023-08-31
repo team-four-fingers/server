@@ -1,6 +1,8 @@
 package main
 
 import (
+	"github.com/team-four-fingers/kakao/core"
+	"github.com/team-four-fingers/kakao/mobility"
 	"log"
 	"net/http"
 	"server/server"
@@ -8,8 +10,13 @@ import (
 )
 
 func main() {
-	cfg := NewConfig()
-	portNumber := cfg.PortNumber()
+	setting := NewSetting()
+
+	cfg := NewConfig(
+		setting,
+		mobility.NewClient(core.NewClient(core.WithRestAPIKey(setting.KakaoRESTAPIKey))),
+	)
+	portNumber := cfg.setting.PortNumber
 
 	httpServer := server.NewHTTPServer()
 
