@@ -59,7 +59,6 @@ func (h *Handler) HandleFunc() func(c echo.Context) error {
 				}
 			}),
 			Priority: lo.ToPtr(kakaocommon.PathPriority.Recommend),
-			Summary:  lo.ToPtr(true),
 		})
 		if err != nil {
 			return echo.NewHTTPError(http.StatusInternalServerError, err.Error())
