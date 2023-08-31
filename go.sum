@@ -42,6 +42,10 @@ github.com/team-four-fingers/kakao v0.0.0-20230831095252-178f5aeb7f46 h1:luVIMGl
 github.com/team-four-fingers/kakao v0.0.0-20230831095252-178f5aeb7f46/go.mod h1:Lv3xIceToTwu9Z/APjeR+GndpZUPT9dfo0Nki8G0Gho=
 github.com/team-four-fingers/kakao v0.0.0-20230831095941-7ba1d5a3762f h1:fMGdsyhCQv3344gy0bzXkxXVZPfwlzpEiQQOD1lKzuA=
 github.com/team-four-fingers/kakao v0.0.0-20230831095941-7ba1d5a3762f/go.mod h1:Lv3xIceToTwu9Z/APjeR+GndpZUPT9dfo0Nki8G0Gho=
+github.com/team-four-fingers/kakao v0.0.0-20230831182937-24b3058091ae h1:QjdIk4ETP/WIURqR7tWfxuBIII7a+Cn26w+VpVVYtgQ=
+github.com/team-four-fingers/kakao v0.0.0-20230831182937-24b3058091ae/go.mod h1:Lv3xIceToTwu9Z/APjeR+GndpZUPT9dfo0Nki8G0Gho=
+github.com/team-four-fingers/kakao v0.0.0-20230831183438-541f37e71570 h1:vtFfnraKowAYiD2uc0po722ODD6a6BWwkN1jGa19B+Y=
+github.com/team-four-fingers/kakao v0.0.0-20230831183438-541f37e71570/go.mod h1:Lv3xIceToTwu9Z/APjeR+GndpZUPT9dfo0Nki8G0Gho=
 github.com/valyala/bytebufferpool v1.0.0 h1:GqA5TC/0021Y/b9FG4Oi9Mr3q7XYx6KllzawFIhcdPw=
 github.com/valyala/bytebufferpool v1.0.0/go.mod h1:6bBcMArwyJ5K/AmCkWv1jt77kVWyCJ6HpOuEn7z0Csc=
 github.com/valyala/fasttemplate v1.2.1/go.mod h1:KHLXt3tVN2HBp8eijSv/kGJopbvo7S+qRAEEKiv+SiQ=

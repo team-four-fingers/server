@@ -14,14 +14,24 @@ import (
 func main() {
 	setting := config.NewSetting()
 
-	makeCoreCli := func() *core.Client {
-		return core.NewClient(core.WithRestAPIKey(setting.KakaoRESTAPIKey))
+	if err := core.InitializeSDK(setting.KakaoRESTAPIKey); err != nil {
+		log.Fatal(err)
+	}
+
+	mobilityCli, err := mobility.NewClient()
+	if err != nil {
+		log.Fatal(err)
+	}
+
+	localCli, err := local.NewClient()
+	if err != nil {
+		log.Fatal(err)
 	}
 
 	cfg := config.NewConfig(
 		setting,
-		mobility.NewClient(makeCoreCli()),
-		local.NewClient(makeCoreCli()),
+		mobilityCli,
+		localCli,
 	)
 
 	httpServer := server.NewHTTPServer(cfg)
