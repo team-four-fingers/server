@@ -1,4 +1,4 @@
-package routes
+package mockroutes
 
 import "encoding/json"
 

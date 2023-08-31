@@ -1,4 +1,4 @@
-package routes
+package mockroutes
 
 import (
 	"github.com/labstack/echo/v4"
@@ -8,22 +8,20 @@ import (
 	"server/server/handler/common"
 )
 
-var _ server.HTTPHandler = (*RoutesHandler)(nil)
+var _ server.HTTPHandler = (*Handler)(nil)
 
-type RoutesHandler struct{}
+type Handler struct{}
 
-func (h *RoutesHandler) Method() string {
+func (h *Handler) Method() string {
 	return http.MethodPost
 }
 
-func (h *RoutesHandler) Path() string {
-	return "/routes"
+func (h *Handler) Path() string {
+	return "/mock-routes"
 }
 
-func (h *RoutesHandler) HandleFunc() func(c echo.Context) error {
+func (h *Handler) HandleFunc() func(c echo.Context) error {
 	return func(c echo.Context) error {
-		c.Request()
-
 		resp := &RoutesResponse{
 			//"name": "일진빌딩",
 			//{         "x": "126.946362033068",         "y": "37.5404741779088"     }
