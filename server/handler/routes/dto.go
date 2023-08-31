@@ -20,7 +20,7 @@ type Response struct {
 	Waypoints          []common.Store       `json:"waypoints"`
 	CoordinatesInOrder []common.Coordinate  `json:"coordinates_in_order"`
 	DurationInSeconds  int                  `json:"duration_in_minutes"`
-	DistanceInMeters   int                  `json:"distance_in_km"`
+	DistanceInMeters   int                  `json:"distance_in_meters"`
 	Comparison         NavigationComparison `json:"comparison"`
 }
 
@@ -29,13 +29,13 @@ type NavigationComparison struct {
 	SavedGasCost       int `json:"saved_gas_cost"`
 	Control            struct {
 		DurationInMinutes int   `json:"duration_in_minutes"`
-		DistanceInKm      int   `json:"distance_in_km"`
+		DistanceInMeters  int   `json:"distance_in_meters"`
 		GasCost           int   `json:"gas_cost"`
 		Route             Route `json:"route"`
 	} `json:"control"`
 	Treatment struct {
 		DurationInMinutes int     `json:"duration_in_minutes"`
-		DistanceInKm      int     `json:"distance_in_km"`
+		DistanceInMeters  int     `json:"distance_in_meters"`
 		GasCost           int     `json:"gas_cost"`
 		Routes            []Route `json:"routes"`
 	} `json:"treatment"`
