@@ -14,6 +14,6 @@ func MakeServerHandlers(cfg *config.Config) []server.HTTPHandler {
 		&common.HealthHandler{},
 		&mockroutes.Handler{},
 		routes.NewHandler(cfg.MobilityCli()),
-		search.NewHandler(cfg.MobilityCli(), cfg.LocalCli()),
+		search.NewHandler(cfg.LocalCli()),
 	}
 }

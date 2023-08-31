@@ -6,7 +6,6 @@ import (
 	"github.com/samber/lo"
 	"github.com/team-four-fingers/kakao/local"
 	"github.com/team-four-fingers/kakao/local/keyword"
-	"github.com/team-four-fingers/kakao/mobility"
 	"math/rand"
 	"net/http"
 	"server/pkg/grouper"
@@ -18,12 +17,11 @@ import (
 var _ server.HTTPHandler = (*Handler)(nil)
 
 type Handler struct {
-	mobilityCli mobility.Client
-	localCli    local.Client
+	localCli local.Client
 }
 
-func NewHandler(mobilityCli mobility.Client, localCli local.Client) *Handler {
-	return &Handler{mobilityCli: mobilityCli, localCli: localCli}
+func NewHandler(localCli local.Client) *Handler {
+	return &Handler{localCli: localCli}
 }
 
 func (h *Handler) Method() string {
