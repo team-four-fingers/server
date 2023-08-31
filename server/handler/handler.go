@@ -6,6 +6,7 @@ import (
 	"server/server/handler/common"
 	"server/server/handler/mockroutes"
 	"server/server/handler/routes"
+	"server/server/handler/search"
 )
 
 func MakeServerHandlers(cfg *config.Config) []server.HTTPHandler {
@@ -13,5 +14,6 @@ func MakeServerHandlers(cfg *config.Config) []server.HTTPHandler {
 		&common.HealthHandler{},
 		&mockroutes.Handler{},
 		routes.NewHandler(cfg.MobilityCli()),
+		search.NewHandler(cfg.MobilityCli(), cfg.LocalCli()),
 	}
 }

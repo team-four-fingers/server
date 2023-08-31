@@ -5,6 +5,10 @@ github.com/go-resty/resty/v2 v2.7.0 h1:me+K9p3uhSmXtrBZ4k9jcEAfJmuC8IivWHwaLZwPr
 github.com/go-resty/resty/v2 v2.7.0/go.mod h1:9PWDzw47qPphMRFfhsyk0NnSgvluHcljSMVIq3w7q0I=
 github.com/golang-jwt/jwt v3.2.2+incompatible h1:IfV12K8xAKAnZqdXVzCZ+TOjboZ2keLg81eXfW3O+oY=
 github.com/golang-jwt/jwt v3.2.2+incompatible/go.mod h1:8pz2t5EyA70fFQQSrl6XZXzqecmYZeUEB8OUGHkxJ+I=
+github.com/hashicorp/errwrap v1.0.0 h1:hLrqtEDnRye3+sgx6z4qVLNuviH3MR5aQ0ykNJa/UYA=
+github.com/hashicorp/errwrap v1.0.0/go.mod h1:YH+1FKiLXxHSkmPseP+kNlulaMuP3n2brvKWEqk/Jc4=
+github.com/hashicorp/go-multierror v1.1.1 h1:H5DkEtf6CXdFp0N0Em5UCwQpXMWke8IA0+lD48awMYo=
+github.com/hashicorp/go-multierror v1.1.1/go.mod h1:iw975J/qwKPdAO1clOe2L8331t/9/fmwbPZ6JB6eMoM=
 github.com/labstack/echo/v4 v4.11.1 h1:dEpLU2FLg4UVmvCGPuk/APjlH6GDpbEPti61srUUUs4=
 github.com/labstack/echo/v4 v4.11.1/go.mod h1:YuYRTSM3CHs2ybfrL8Px48bO6BAnYIN4l8wSTMP6BDQ=
 github.com/labstack/gommon v0.4.0 h1:y7cvthEAEbU0yHOf4axH8ZG2NH8knB9iNSoTO8dyIk8=
@@ -30,6 +34,14 @@ github.com/stretchr/testify v1.8.4 h1:CcVxjf3Q8PM0mHUKJCdn+eZZtm5yQwehR5yeSVQQcU
 github.com/stretchr/testify v1.8.4/go.mod h1:sz/lmYIOXD/1dqDmKjjqLyZ2RngseejIcXlSw2iwfAo=
 github.com/team-four-fingers/kakao v0.0.0-20230831061222-e7b8d0ba00ec h1:EjWTnNSZp+k7s03AIEAAUUwVv2LTeb+PBob5SW9OTbQ=
 github.com/team-four-fingers/kakao v0.0.0-20230831061222-e7b8d0ba00ec/go.mod h1:Lv3xIceToTwu9Z/APjeR+GndpZUPT9dfo0Nki8G0Gho=
+github.com/team-four-fingers/kakao v0.0.0-20230831084203-96c57bf1d2d8 h1:Oo36h/dtVLJ/i84uwshNAgObPACOhvVX+K9TSBrdxwg=
+github.com/team-four-fingers/kakao v0.0.0-20230831084203-96c57bf1d2d8/go.mod h1:Lv3xIceToTwu9Z/APjeR+GndpZUPT9dfo0Nki8G0Gho=
+github.com/team-four-fingers/kakao v0.0.0-20230831090009-4318f6717ec0 h1:AztFR794hl6Bpb/TTfgedYaarJzZ3Q4KdDWoL7b47bs=
+github.com/team-four-fingers/kakao v0.0.0-20230831090009-4318f6717ec0/go.mod h1:Lv3xIceToTwu9Z/APjeR+GndpZUPT9dfo0Nki8G0Gho=
+github.com/team-four-fingers/kakao v0.0.0-20230831095252-178f5aeb7f46 h1:luVIMGl9zPIIwgxla7DCYigBe27uTgAtSrxV6HuTX38=
+github.com/team-four-fingers/kakao v0.0.0-20230831095252-178f5aeb7f46/go.mod h1:Lv3xIceToTwu9Z/APjeR+GndpZUPT9dfo0Nki8G0Gho=
+github.com/team-four-fingers/kakao v0.0.0-20230831095941-7ba1d5a3762f h1:fMGdsyhCQv3344gy0bzXkxXVZPfwlzpEiQQOD1lKzuA=
+github.com/team-four-fingers/kakao v0.0.0-20230831095941-7ba1d5a3762f/go.mod h1:Lv3xIceToTwu9Z/APjeR+GndpZUPT9dfo0Nki8G0Gho=
 github.com/valyala/bytebufferpool v1.0.0 h1:GqA5TC/0021Y/b9FG4Oi9Mr3q7XYx6KllzawFIhcdPw=
 github.com/valyala/bytebufferpool v1.0.0/go.mod h1:6bBcMArwyJ5K/AmCkWv1jt77kVWyCJ6HpOuEn7z0Csc=
 github.com/valyala/fasttemplate v1.2.1/go.mod h1:KHLXt3tVN2HBp8eijSv/kGJopbvo7S+qRAEEKiv+SiQ=

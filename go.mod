@@ -7,12 +7,14 @@ require (
 	github.com/pkg/errors v0.9.1
 	github.com/samber/lo v1.38.1
 	github.com/sirupsen/logrus v1.9.3
-	github.com/team-four-fingers/kakao v0.0.0-20230831061222-e7b8d0ba00ec
+	github.com/team-four-fingers/kakao v0.0.0-20230831095941-7ba1d5a3762f
 )
 
 require (
 	github.com/go-resty/resty/v2 v2.7.0 // indirect
 	github.com/golang-jwt/jwt v3.2.2+incompatible // indirect
+	github.com/hashicorp/errwrap v1.0.0 // indirect
+	github.com/hashicorp/go-multierror v1.1.1 // indirect
 	github.com/labstack/gommon v0.4.0 // indirect
 	github.com/mattn/go-colorable v0.1.13 // indirect
 	github.com/mattn/go-isatty v0.0.19 // indirect

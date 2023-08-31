@@ -2,6 +2,7 @@ package main
 
 import (
 	"github.com/team-four-fingers/kakao/core"
+	"github.com/team-four-fingers/kakao/local"
 	"github.com/team-four-fingers/kakao/mobility"
 	"log"
 	"net/http"
@@ -13,11 +14,15 @@ import (
 func main() {
 	setting := config.NewSetting()
 
+	makeCoreCli := func() *core.Client {
+		return core.NewClient(core.WithRestAPIKey(setting.KakaoRESTAPIKey))
+	}
+
 	cfg := config.NewConfig(
 		setting,
-		mobility.NewClient(core.NewClient(core.WithRestAPIKey(setting.KakaoRESTAPIKey))),
+		mobility.NewClient(makeCoreCli()),
+		local.NewClient(makeCoreCli()),
 	)
-	portNumber := cfg.Setting().PortNumber
 
 	httpServer := server.NewHTTPServer(cfg)
 
@@ -27,7 +32,7 @@ func main() {
 		log.Fatal(err)
 	}
 
-	if err := httpServer.Start(portNumber); err != nil && err != http.ErrServerClosed {
+	if err := httpServer.Start(cfg.Setting().PortNumber); err != nil && err != http.ErrServerClosed {
 		log.Fatal(err)
 	}
 }
