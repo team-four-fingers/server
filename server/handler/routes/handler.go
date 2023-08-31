@@ -165,21 +165,24 @@ func (h *Handler) HandleFunc() func(c echo.Context) error {
 		treatmentTotalDuration := initialFirstRoute.Summary.Duration + initialSecondRoute.Summary.Duration
 		treatmentTotalDistance := initialFirstRoute.Summary.Distance + initialSecondRoute.Summary.Distance
 
-		treatmentGasCost := treatmentTotalDistance / 1000 / fuelEfficiencyLiterPerKm * gastCostPerLiter
-		controlGastCost := bestRoute.Summary.Distance / 1000 / fuelEfficiencyLiterPerKm * gastCostPerLiter
+		treatmentGasCost := calculateGasCost(treatmentTotalDistance)
+		controlGastCost := calculateGasCost(bestRoute.Summary.Distance)
+
+		treatmentDurationInMinutes := treatmentTotalDuration / 60
+		controlDurationInMinutes := bestRoute.Summary.Duration / 60
 
 		resp := &Response{
 			Origin:             origin,
 			Destination:        destination,
 			Waypoints:          waypoints,
 			CoordinatesInOrder: sectionsToCoordinatesInOrder(bestRoute.Sections),
-			DurationInSeconds:  bestRoute.Summary.Duration / 60,
+			DurationInSeconds:  controlDurationInMinutes,
 			DistanceInMeters:   bestRoute.Summary.Distance,
 			Comparison: NavigationComparison{
-				SavedTimeInMinutes: (treatmentTotalDuration - bestRoute.Summary.Duration) / 60,
+				SavedTimeInMinutes: treatmentDurationInMinutes - controlDurationInMinutes,
 				SavedGasCost:       treatmentGasCost - controlGastCost,
 				Control: Control{
-					DurationInMinutes: bestRoute.Summary.Duration / 60,
+					DurationInMinutes: controlDurationInMinutes,
 					DistanceInMeters:  bestRoute.Summary.Distance,
 					GasCost:           controlGastCost,
 					Route: Route{
@@ -189,7 +192,7 @@ func (h *Handler) HandleFunc() func(c echo.Context) error {
 					},
 				},
 				Treatment: Treatment{
-					DurationInMinutes: treatmentTotalDuration / 60,
+					DurationInMinutes: treatmentDurationInMinutes,
 					DistanceInMeters:  treatmentTotalDistance,
 					GasCost:           treatmentGasCost,
 					Routes: []Route{
@@ -210,4 +213,8 @@ func (h *Handler) HandleFunc() func(c echo.Context) error {
 
 		return c.JSON(http.StatusOK, resp)
 	}
+}
+
+func calculateGasCost(distanceInMeters int) int {
+	return distanceInMeters / 1000 / fuelEfficiencyLiterPerKm * gastCostPerLiter
 }
