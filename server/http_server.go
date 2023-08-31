@@ -3,6 +3,7 @@ package server
 import (
 	"fmt"
 	"github.com/labstack/echo/v4"
+	"github.com/labstack/echo/v4/middleware"
 	"github.com/pkg/errors"
 	"github.com/sirupsen/logrus"
 	"net/http"
@@ -19,8 +20,11 @@ type HTTPHandler interface {
 }
 
 func NewHTTPServer() *HTTPServer {
+	e := echo.New()
+	e.Use(middleware.Recover())
+	e.Use(middleware.CORS())
 	return &HTTPServer{
-		echo.New(),
+		e,
 	}
 }
 
