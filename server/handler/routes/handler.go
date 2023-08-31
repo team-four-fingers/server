@@ -2,7 +2,6 @@ package routes
 
 import (
 	"github.com/labstack/echo/v4"
-	"github.com/labstack/gommon/log"
 	"github.com/pkg/errors"
 	"github.com/samber/lo"
 	"github.com/team-four-fingers/kakao/mobility"
@@ -92,8 +91,6 @@ func (h *Handler) HandleFunc() func(c echo.Context) error {
 			waypointsOnFirstVisit = waypoints[:len(waypoints)/2]
 			waypointsOnSecondVisit = waypoints[len(waypoints)/2:]
 		}
-
-		log.Info("fine")
 
 		var initialFirstRoute, initialSecondRoute kakaowaypoints.Route
 		// 반만 거치고 집으로 가는 길
