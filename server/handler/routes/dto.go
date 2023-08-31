@@ -25,18 +25,22 @@ type Response struct {
 }
 
 type NavigationComparison struct {
-	SavedTimeInMinutes int `json:"saved_time_in_minutes"`
-	SavedGasCost       int `json:"saved_gas_cost"`
-	Control            struct {
-		DurationInMinutes int   `json:"duration_in_minutes"`
-		DistanceInMeters  int   `json:"distance_in_meters"`
-		GasCost           int   `json:"gas_cost"`
-		Route             Route `json:"route"`
-	} `json:"control"`
-	Treatment struct {
-		DurationInMinutes int     `json:"duration_in_minutes"`
-		DistanceInMeters  int     `json:"distance_in_meters"`
-		GasCost           int     `json:"gas_cost"`
-		Routes            []Route `json:"routes"`
-	} `json:"treatment"`
+	SavedTimeInMinutes int       `json:"saved_time_in_minutes"`
+	SavedGasCost       int       `json:"saved_gas_cost"`
+	Control            Control   `json:"control"`
+	Treatment          Treatment `json:"treatment"`
+}
+
+type Control struct {
+	DurationInMinutes int   `json:"duration_in_minutes"`
+	DistanceInMeters  int   `json:"distance_in_meters"`
+	GasCost           int   `json:"gas_cost"`
+	Route             Route `json:"route"`
+}
+
+type Treatment struct {
+	DurationInMinutes int     `json:"duration_in_minutes"`
+	DistanceInMeters  int     `json:"distance_in_meters"`
+	GasCost           int     `json:"gas_cost"`
+	Routes            []Route `json:"routes"`
 }
