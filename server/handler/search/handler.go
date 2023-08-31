@@ -16,6 +16,31 @@ import (
 
 var _ server.HTTPHandler = (*Handler)(nil)
 
+var (
+	productByCategoryGroupCode = map[string]Product{
+		local.CategoryGroupCode.Cafe: {
+			Name:     "아메리카노",
+			Price:    5000,
+			ImageUrl: "https://cdn.pixabay.com/photo/2017/05/07/08/56/pancakes-2291908_960_720.jpg",
+		},
+		local.CategoryGroupCode.Restaurant: {
+			Name:     "불고기",
+			Price:    10000,
+			ImageUrl: "https://cdn.pixabay.com/photo/2017/05/07/08/56/pancakes-2291908_960_720.jpg",
+		},
+		local.CategoryGroupCode.Convenience: {
+			Name:     "삼각김밥",
+			Price:    2000,
+			ImageUrl: "https://cdn.pixabay.com/photo/2017/05/07/08/56/pancakes-2291908_960_720.jpg",
+		},
+		local.CategoryGroupCode.DepartmentStore: {
+			Name:     "삼겹살",
+			Price:    12000,
+			ImageUrl: "https://cdn.pixabay.com/photo/2017/05/07/08/56/pancakes-2291908_960_720.jpg",
+		},
+	}
+)
+
 type Handler struct {
 	localCli local.Client
 }
@@ -76,9 +101,11 @@ func (h *Handler) HandleFunc() func(c echo.Context) error {
 
 		g := grouper.NewPanicSafeGroup()
 
-		stores := make([]common.Store, 0, 60)
-		for _, code := range categoryGroupCodesToUse {
+		resultsSlices := make([][]Result, 4)
+		for i, code := range categoryGroupCodesToUse {
 			g.Go(func() error {
+				results := make([]Result, 0, 15)
+
 				keywordResp, err := h.localCli.SearchByKeyword(query, code, origin.X, origin.Y, radius)
 				if err != nil {
 					if errors.Is(err, local.ErrNoResult) {
@@ -93,9 +120,17 @@ func (h *Handler) HandleFunc() func(c echo.Context) error {
 						return err
 					}
 
-					stores = append(stores, *store)
+					results = append(results, Result{
+						ResultId: i,
+						WhenTypes: []string{
+							WhenType.Brunch,
+						},
+						Product: productByCategoryGroupCode[code],
+						Store:   *store,
+					})
 				}
 
+				resultsSlices[i] = results
 				return nil
 			})
 		}
@@ -104,30 +139,14 @@ func (h *Handler) HandleFunc() func(c echo.Context) error {
 			return echo.NewHTTPError(http.StatusInternalServerError, err.Error())
 		}
 
-		stores = lo.UniqBy(stores, func(store common.Store) string {
-			return store.Name
+		results := lo.Flatten(resultsSlices)
+		results = lo.UniqBy(results, func(result Result) string {
+			return result.Store.Name
 		})
 
-		results := lo.Map(stores, func(store common.Store, i int) Result {
-			return Result{
-				ResultId: i,
-				WhenTypes: []string{
-					WhenType.Brunch,
-				},
-				Product: Product{
-					Name:     "팬케이크",
-					Price:    3000,
-					ImageUrl: "https://cdn.pixabay.com/photo/2017/05/07/08/56/pancakes-2291908_960_720.jpg",
-				},
-				Store: store,
-			}
-		})
-
-		resp := &Response{
+		return c.JSON(http.StatusOK, &Response{
 			Results: results,
-		}
-
-		return c.JSON(http.StatusOK, resp)
+		})
 	}
 }
 
